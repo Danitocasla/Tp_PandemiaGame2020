@@ -31,7 +31,13 @@ object simulacion {
 
 	method crearManzana() {
 		const nuevaManzana = new Manzana()
-		// agregar la cantidad de personas segun self.personasPorManzana()
+		(1..self.personasPorManzana()).forEach({p=>
+				self.crearYAgregarA(nuevaManzana)
+		})
 		return nuevaManzana
+	}
+	method crearYAgregarA(unaManzana){
+		const nuevaPersona = new Persona()
+		unaManzana.agregarPersona(nuevaPersona)
 	}
 }
