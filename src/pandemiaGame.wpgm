@@ -9,6 +9,7 @@ object pandemiaGameConfig {
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
+		keyboard.d().onPressDo {simulacion.pasoDeDia()}
 		// agregar las teclas de acciones
 		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
@@ -28,6 +29,11 @@ object pandemiaGameConfig {
 				game.addVisual(nuevaManzana)
 			})
 		})
+	}
+	// sin usar. Con duda donde usar
+	method agregarInfectade(){
+		const manzana = game.allVisuals()
+		simulacion.agregarInfectadoA(manzana)
 	}
 	
 }
