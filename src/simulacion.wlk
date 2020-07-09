@@ -36,8 +36,23 @@ object simulacion {
 		})
 		return nuevaManzana
 	}
+	// en manzana debo tener method agregarPersona(unaPersona)
 	method crearYAgregarA(unaManzana){
 		const nuevaPersona = new Persona()
 		unaManzana.agregarPersona(nuevaPersona)
 	}
+	
+	// probar con código de manzanas terminado
+	method pasoDeDia(){
+		//movimiento y contagio a cada manzana
+		manzanas.forEach({m=>m.pasarUnDia()})
+		diaActual += 1
+	}
+	// en personas debe estar el property estaInfectada
+	method agregarInfectadoA(unaManzana){
+		const personaInfectada = new Persona()
+		personaInfectada.estaInfectada(true)         
+		unaManzana.agregarPersona(personaInfectada)
+	}
+		
 }
