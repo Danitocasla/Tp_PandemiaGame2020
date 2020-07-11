@@ -35,24 +35,52 @@ object simulacion {
 				self.crearYAgregarA(nuevaManzana)
 		})
 		return nuevaManzana
-	}
-	// en manzana debo tener method agregarPersona(unaPersona)
+	}// Daniel Mendez
+	
 	method crearYAgregarA(unaManzana){
 		const nuevaPersona = new Persona()
 		unaManzana.agregarPersona(nuevaPersona)
-	}
+	}// Daniel Mendez
 	
 	// probar con código de manzanas terminado
 	method pasoDeDia(){
 		//movimiento y contagio a cada manzana
 		manzanas.forEach({m=>m.pasarUnDia()})
 		diaActual += 1
-	}
-	// en personas debe estar el property estaInfectada
+	}// Daniel Mendez
+	
 	method agregarInfectadoA(unaManzana){
 		const personaInfectada = new Persona()
-		personaInfectada.estaInfectada(true)         
-		unaManzana.agregarPersona(personaInfectada)
+		personaInfectada.infectarse()         
+		unaManzana.agregarPersonaAlAzar(personaInfectada)
+	}// Daniel Mendez
+	
+	method agregarPersonaAlAzar(unaPersona){
+		const manzanaAzar = manzanas.get(1..self.totalDePersonas())
 	}
-		
+	
+	method estadoGeneral(){
+		return "Dia Actual nro: " + self.diaActual() +
+		" Total de Persosnas: " + self.totalDePersonas() + 
+		" Infectades: " + self.contidadInfectadesTotal() + " Con sintomas: " +
+		self.cantidadTotalConSintomas()
+	}// Daniel Mendez
+	
+	method totalDePersonas() {
+		return manzanas.sum({
+			m => m.totalXManzanas()
+		})
+	}// Daniel Mendez
+	
+	method contidadInfectadesTotal() {
+		return manzanas.sum({
+			m => m.cantidadInfectades()
+		})
+	}// Daniel Mendez
+	
+	method cantidadTotalConSintomas(){
+		return manzanas.sum({
+			m => m.cantidadConSintomas()
+		})
+	}// Daniel Mendez	
 }
