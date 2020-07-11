@@ -23,6 +23,7 @@ class Manzana {
 	method pasarUnDia() {
 		self.transladoDeUnHabitante()
 		self.simulacionContagiosDiarios()
+		
 		// despues agregar la curacion
 	}
 	
