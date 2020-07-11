@@ -31,7 +31,8 @@ object simulacion {
 
 	method crearManzana() {
 		const nuevaManzana = new Manzana()
-		// agregar la cantidad de personas segun self.personasPorManzana()
+		nuevaManzana.totalEnManzana(self.personasPorManzana())
+
 		return nuevaManzana
 	}
 }

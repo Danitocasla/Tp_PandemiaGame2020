@@ -52,10 +52,10 @@ class Manzana {
 		return personas.filter({pers => pers.estaAislada()})
 	}
 	method cantidadDeAislados(){
-		return personas.count({pers => pers.estaAislado()})
+		return personas.count({pers => pers.estaAislada()})
 	}
 	method infectadosYAislados(){
-		return personas.count({pers => pers.estaInfectada() and pers.estaAislado()})
+		return personas.count({pers => pers.estaInfectada() and pers.estaAislada()})
 	}	
 	
 	method simulacionContagiosDiarios() { 
