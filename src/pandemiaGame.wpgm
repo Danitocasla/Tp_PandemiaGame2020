@@ -30,12 +30,6 @@ object pandemiaGameConfig {
 			})
 		})
 	}
-	// sin usar. Con duda donde usar
-	method agregarInfectade(){
-		const manzana = game.getObjectsIn(game.origin()	)
-		simulacion.agregarInfectadoA(manzana)
-	}
-	
 }
 
 program pandemiaGame {
