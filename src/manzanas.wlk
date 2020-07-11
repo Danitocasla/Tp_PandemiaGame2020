@@ -32,15 +32,16 @@ class Manzana {
 		return manzana.position().distance(position) == 1
 	}
 
-	method pasarUnDia() {
+	method pasarUnDia(){
 		self.transladoDeUnHabitante()
-		self.simulacionContagiosDiarios()
+	 	self.simulacionContagiosDiarios()
 		self.curacion()
 		// despues agregar la curacion
 	}
+	
 	method curacion(){
-		if (self.hayPersonaSana()) return self.curarPersonas()
-		else return self.error("No se puede curar")
+		return if (self.hayPersonaSana()) self.curarPersonas()
+		else self.error("No se puede curar")
 	}
 	method curarPersonas(){
 		return personas.forEach({pers => pers.estaInfectada(true)})
@@ -92,7 +93,7 @@ class Manzana {
 	
 	method transladoDeUnHabitante() {
 		const quienesSePuedenMudar = personas.filter({ pers => not pers.estaAislada() })
-		if (quienesSePuedenMudar.size() > 2) {
+		    if (quienesSePuedenMudar.size() > 2) {
 			const viajero = quienesSePuedenMudar.anyOne()
 			const destino = simulacion.manzanas().filter({ manz => self.esManzanaVecina(manz) }).anyOne()
 			self.personaSeMudaA(viajero, destino)			
