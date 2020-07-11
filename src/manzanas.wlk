@@ -5,10 +5,15 @@ import wollok.game.*
 class Manzana {
 	const property personas = []
 	var property position
+	var property cantidadDeInfectados
+	var property totalEnManzana
 	
 	method image() {
 		// reeemplazarlo por los distintos colores de acuerdo a la cantidad de infectados
 		// también vale reemplazar estos dibujos horribles por otros más lindos
+		if (cantidadDeInfectados.between(0,4)) return "amarillo.png"
+		else if(cantidadDeInfectados.between(3,7)) return "naranja.png"
+		else if((cantidadDeInfectados > 7) <= totalEnManzana) return "rojo.png"
 		return "blanco.png"
 	}
 	
@@ -24,7 +29,7 @@ class Manzana {
 	}
 	
 	method personaSeMudaA(persona, manzanaDestino) {
-		// implementar
+		
 	}
 	
 	method cantidadContagiadores() {
