@@ -1,5 +1,6 @@
 import wollok.game.*
 import simulacion.*
+import manzanas.*
 
 object pandemiaGameConfig {
 	method height() = 4
@@ -34,6 +35,12 @@ object pandemiaGameConfig {
 
 program pandemiaGame {
 	pandemiaGameConfig.configureGame()
+	
+	keyboard.up().onPressDo(manzana.moverAbajoManzana())
+	keyboard.down().onPressDo(manzana.moverArribaaManzana())
+	keyboard.left().onPressDo(manzana.moverIzquierdaManzana())
+	keyboard.right().onPressDo(manzana.moverDerechaManzana())
+	
 	game.start()
 }
 

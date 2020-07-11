@@ -15,7 +15,19 @@ class Manzana {
 		return "blanco.png"
 	}
 	
-	// este les va a servir para el movimiento
+	method moverDerechaManzana(){
+		self.position(self.position().right(1))
+	}
+	method moverIzquierdaManzana(){
+		self.position(self.position().left(1))
+	}
+	method moverArribaaManzana(){
+		self.position(self.position().up(1))
+	}
+	method moverAbajoManzana(){
+		self.position(self.position().down(1))
+	}
+	
 	method esManzanaVecina(manzana) {
 		return manzana.position().distance(position) == 1
 	}
@@ -23,10 +35,19 @@ class Manzana {
 	method pasarUnDia() {
 		self.transladoDeUnHabitante()
 		self.simulacionContagiosDiarios()
-		
+		self.curacion()
 		// despues agregar la curacion
 	}
-	
+	method curacion(){
+		if (self.hayPersonaSana()) return self.curarPersonas()
+		else return self.error("No se puede curar")
+	}
+	method curarPersonas(){
+		return personas.forEach({pers => pers.estaInfectada(true)})
+	}
+	method hayPersonaSana(){
+		return personas.any({pers => pers.diaQueSeInfecto() >= 15})
+	}
 	method personaSeMudaA(persona, manzanaDestino) {
 		self.expulsarPersonaDeManzana(persona)
 		manzanaDestino.agregarPersonaAManzana(persona)

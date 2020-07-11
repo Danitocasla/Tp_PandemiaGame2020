@@ -35,4 +35,5 @@ object simulacion {
 
 		return nuevaManzana
 	}
+	
 }
