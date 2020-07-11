@@ -6,11 +6,35 @@ class Manzana {
 	const property personas = []
 	var property position
 	
+	method agregarPersona(unaPersona) = personas.add(unaPersona)
+	// Daniel Mendez
+	
 	method image() {
 		// reeemplazarlo por los distintos colores de acuerdo a la cantidad de infectados
 		// también vale reemplazar estos dibujos horribles por otros más lindos
-		return "blanco.png"
-	}
+		var color
+		if(self.cantidadInfectades().between(1,3)){
+			color = "amarillo.png"
+		}
+		else if(self.cantidadInfectades().between(4,7)){
+			color = "naranja.png"
+		}
+		else if(self.cantidadInfectades().between(7,self.totalXManzana()-1)){
+			color = "naranjaOscuro.png"
+		}
+		else if(self.cantidadInfectades()==self.totalXManzana()){
+			color = "rojo.png"
+		}
+		else {color = "blanco.png" }
+		return color
+	}// Daniel Mendez
+	
+	//total de personas por manzana
+	method totalXManzana() = personas.size()
+	// Daniel Mendez
+	
+	// cantidad total de infectades
+	method cantidadInfectades() = self.totalXManzana() - self.noInfectades().size()
 	
 	// este les va a servir para el movimiento
 	method esManzanaVecina(manzana) {
@@ -20,17 +44,24 @@ class Manzana {
 	method pasarUnDia() {
 		self.transladoDeUnHabitante()
 		self.simulacionContagiosDiarios()
+		self.transladoDeUnHabitante()
 		// despues agregar la curacion
 	}
 	
 	method personaSeMudaA(persona, manzanaDestino) {
-		// implementar
-	}
+		manzanaDestino.agregarPersona(persona)
+	}// Daniel Mendez
+
 	
 	method cantidadContagiadores() {
-		return 0
-		// reemplazar por la cantidad de personas infectadas que no estan aisladas
-	}
+		return personas.count({
+			pers => pers.estaInfectada() and not pers.estaAislada()
+		})
+	}// Daniel Mendez
+	
+	method infectades(){
+		return personas.filter({ pers => pers.estaInfectada() })
+	}// Daniel Mendez
 	
 	method noInfectades() {
 		return personas.filter({ pers => not pers.estaInfectada() })
@@ -55,4 +86,10 @@ class Manzana {
 			self.personaSeMudaA(viajero, destino)			
 		}
 	}
+	
+	method cantidadConSintomas(){
+		return self.infectades().count({
+			pers => pers.conSintomas()
+		})
+	}// Daniel Mendez
 }
