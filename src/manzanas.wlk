@@ -9,8 +9,6 @@ class Manzana {
 	var property totalEnManzana
 	
 	method image() {
-		// reeemplazarlo por los distintos colores de acuerdo a la cantidad de infectados
-		// también vale reemplazar estos dibujos horribles por otros más lindos
 		if (cantidadDeInfectados.between(0,4)) return "amarillo.png"
 		else if(cantidadDeInfectados.between(3,7)) return "naranja.png"
 		else if(cantidadDeInfectados > 7 and cantidadDeInfectados < totalEnManzana) return "rojo.png"
@@ -37,7 +35,7 @@ class Manzana {
 		return self.infectadosYAislados()
 	}
 	
-	method noInfectades() {
+	method noInfectados() {
 		return personas.filter({ pers => not pers.estaInfectada() })
 	}
 	method infectados() {
@@ -62,7 +60,7 @@ class Manzana {
 	method simulacionContagiosDiarios() { 
 		const cantidadContagiadores = self.cantidadContagiadores()
 		if (cantidadContagiadores > 0) {
-			self.noInfectades().forEach({ persona => 
+			self.noInfectados().forEach({ persona => 
 				if (simulacion.debeInfectarsePersona(persona, cantidadContagiadores)) {
 					persona.infectarse()
 				}
