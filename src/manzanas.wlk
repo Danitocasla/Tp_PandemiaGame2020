@@ -9,7 +9,7 @@ class Manzana {
 	var property totalEnManzana
 	
 	method image() {
-		if(self.todosInfectadoss()) return "rojo.png"
+		if(self.cantidadDeInfectados()) return "rojo.png"
 		else if(self.cantidadDeInfectados() < self.cantidadDePersonas()) return "naranjaOscuo.png"
 		else if(self.cantidadDeInfectados().between(4,7)) return "naranja.png"
 		else if(self.cantidadDeInfectados().between(1,3)) return "amarillo.png"
@@ -54,9 +54,6 @@ class Manzana {
 	}
 	method cantidadDeInfectados(){
 		return personas.size({pers => pers.estaInfectada()})
-	}
-	method listaDeAislados(){
-		return personas.filter({pers => pers.estaAislada()})
 	}
 	method cantidadDeAislados(){
 		return personas.count({pers => pers.estaAislada()})
