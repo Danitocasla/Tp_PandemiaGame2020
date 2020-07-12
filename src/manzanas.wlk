@@ -46,9 +46,6 @@ class Manzana {
 	method cantidadContagiadores() {
 		return self.cantidadDeInfectadosYNoAislados()
 	}
-	method todosInfectadoss(){
-		return personas.all({pers => pers.estaInfectada()})
-	}
 	method noInfectados() {
 		return personas.filter({ pers => not pers.estaInfectada() })
 	}
@@ -56,20 +53,13 @@ class Manzana {
 		return personas.filter({pers => pers.estaInfectada()})
 	}
 	method cantidadDeInfectados(){
-		return personas.count({pers => pers.estaInfectada()})
-	}
-	method listaDeNoAislados(){
-		return personas.filter({pers =>not pers.estaAislada()})
+		return personas.size({pers => pers.estaInfectada()})
 	}
 	method listaDeAislados(){
 		return personas.filter({pers => pers.estaAislada()})
 	}
-	
 	method cantidadDeAislados(){
 		return personas.count({pers => pers.estaAislada()})
-	}
-	method cantidadDeInfectadosYAislados(){
-		return personas.count({pers => pers.estaInfectada() and pers.estaAislada()})
 	}
 	method cantidadDeInfectadosYNoAislados(){
 		return personas.count({pers => pers.estaInfectada()and not pers.estaAislada()})

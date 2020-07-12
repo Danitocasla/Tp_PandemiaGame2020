@@ -1,7 +1,7 @@
 import wollok.game.*
 import simulacion.*
 import manzanas.*
-import personas.*
+import agenteDeSalud.*
 
 object pandemiaGameConfig {
 	method height() = 5
