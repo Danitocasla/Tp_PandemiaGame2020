@@ -10,6 +10,7 @@ object pandemiaGameConfig {
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
+		
 		// agregar las teclas de acciones
 		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
@@ -35,6 +36,11 @@ object pandemiaGameConfig {
 
 program pandemiaGame {
 	pandemiaGameConfig.configureGame()
+	
+	keyboard.up().onPressDo{agenteDeSalud.moverArriba()}
+	keyboard.down().onPressDo{agenteDeSalud.moverAbajo()}
+	keyboard.right().onPressDo{agenteDeSalud.moverDerecha()}
+	keyboard.left().onPressDo{agenteDeSalud.moverIzquiedaa()}
 	
 	game.start()
 }

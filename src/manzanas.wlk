@@ -35,8 +35,7 @@ class Manzana {
 	method pasarUnDia(){
 		self.transladoDeUnHabitante()
 	 	self.simulacionContagiosDiarios()
-		self.curacion()
-		// despues agregar la curacion
+		return self.curacion()
 	}
 	
 	method curacion(){
@@ -47,7 +46,7 @@ class Manzana {
 		return personas.forEach({pers => pers.estaInfectada(true)})
 	}
 	method hayPersonaSana(){
-		return personas.any({pers => pers.diaEnQueSeInfecto() >= 15})
+		return personas.any({pers => pers.diaEnQueSeInfecto() >= 20})
 	}
 	method personaSeMudaA(persona, manzanaDestino) {
 		self.expulsarPersonaDeManzana(persona)
