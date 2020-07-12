@@ -53,6 +53,9 @@ class Manzana {
 		self.expulsarPersonaDeManzana(persona)
 		manzanaDestino.agregarPersonaAManzana(persona)
 	}
+	method cantidadDePersonas(){
+		return personas.size()
+	}
 	
 	method cantidadContagiadores() {
 		return self.infectadosYAislados()
@@ -67,17 +70,21 @@ class Manzana {
 	method cantidadDeInfectados(){
 		return personas.count({pers => pers.estaInfectada()})
 	}
-	method noAislados(){
+	method listaDeNoAislados(){
 		return personas.filter({pers =>not pers.estaAislada()})
 	}
-	method aislados(){
+	method listaDeAislados(){
 		return personas.filter({pers => pers.estaAislada()})
 	}
+	
 	method cantidadDeAislados(){
 		return personas.count({pers => pers.estaAislada()})
 	}
-	method infectadosYAislados(){
+	method cantidadDeInfectadosYAislados(){
 		return personas.count({pers => pers.estaInfectada() and pers.estaAislada()})
+	}
+	method cantidadDeInfectadosYNoAislados(){
+		return personas.count({pers => pers.estaInfectada()and not pers.estaAislada()})
 	}	
 	
 	method simulacionContagiosDiarios() { 
