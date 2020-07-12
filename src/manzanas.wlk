@@ -47,7 +47,7 @@ class Manzana {
 		return personas.forEach({pers => pers.estaInfectada(true)})
 	}
 	method hayPersonaSana(){
-		return personas.any({pers => pers.diaQueSeInfecto() >= 15})
+		return personas.any({pers => pers.diaEnQueSeInfecto() >= 15})
 	}
 	method personaSeMudaA(persona, manzanaDestino) {
 		self.expulsarPersonaDeManzana(persona)
@@ -56,9 +56,8 @@ class Manzana {
 	method cantidadDePersonas(){
 		return personas.size()
 	}
-	
 	method cantidadContagiadores() {
-		return self.infectadosYAislados()
+		return self.cantidadDeInfectadosYNoAislados()
 	}
 	
 	method noInfectados() {
