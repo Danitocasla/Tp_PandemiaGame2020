@@ -13,7 +13,7 @@ class Manzana {
 		else if(self.cantidadDeInfectados() < self.cantidadDePersonas()) return "naranjaOscuo.png"
 		else if(self.cantidadDeInfectados().between(4,7)) return "naranja.png"
 		else if(self.cantidadDeInfectados().between(1,3)) return "amarillo.png"
-		return "blanco.png"
+		else return "blanco.png"
 	}
 	
 	method esManzanaVecina(manzana) {
@@ -23,11 +23,11 @@ class Manzana {
 	method pasarUnDia(){
 		self.transladoDeUnHabitante()
 	 	self.simulacionContagiosDiarios()
-		return self.curacion()
+		self.curacion()
 	}
 	
 	method curacion(){
-		return if (self.hayPersonaSana()) self.curarPersonas()
+		return if (not self.hayPersonaSana()) self.curarPersonas()
 		else self.error("No se puede curar")
 	}
 	method curarPersonas(){
