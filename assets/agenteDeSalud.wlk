@@ -1,7 +1,5 @@
 import wollok.game.*
 
-
-
 object agenteDeSalud{
 	var property position 
 	
