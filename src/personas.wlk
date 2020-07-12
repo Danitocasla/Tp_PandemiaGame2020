@@ -1,4 +1,5 @@
-  
+import wollok.game.*
+
 class Persona {
 	var property estaAislada = false
 	var property respetaLaCuarentena = false
@@ -38,7 +39,7 @@ object agenteDeSalud{
 	method moverDerecha(){
 		self.position(self.position().right(1))
 	}
-	method moverIzquieda(){
+	method moverIzquierda(){
 		self.position(self.position().left(1))
 	}
 	method moverArriba(){
@@ -47,8 +48,10 @@ object agenteDeSalud{
 	method moverAbajo(){
 		self.position(self.position().down(1))
 	}
-	method curarPersona(){
+	method aislarPersonas(){
 		
 	}
-	
+	method hacerRespetarLaCuarentena(){
+		
+	}
 }

@@ -1,6 +1,7 @@
 import wollok.game.*
 import simulacion.*
 import manzanas.*
+import personas.*
 
 object pandemiaGameConfig {
 	method height() = 4
@@ -10,7 +11,7 @@ object pandemiaGameConfig {
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
-		
+		self.agregarAgenteDeSalud()
 		// agregar las teclas de acciones
 		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
@@ -31,16 +32,20 @@ object pandemiaGameConfig {
 			})
 		})
 	}
-	
-}
-
-program pandemiaGame {
-	pandemiaGameConfig.configureGame()
-	
+	method agregarAgenteDeSalud(){
+	game.addVisual(agenteDeSalud)
 	keyboard.up().onPressDo{agenteDeSalud.moverArriba()}
 	keyboard.down().onPressDo{agenteDeSalud.moverAbajo()}
 	keyboard.right().onPressDo{agenteDeSalud.moverDerecha()}
-	keyboard.left().onPressDo{agenteDeSalud.moverIzquiedaa()}
+	keyboard.left().onPressDo{agenteDeSalud.moverIzquierda()}
+	}
+	
+}
+
+
+program pandemiaGame {
+	pandemiaGameConfig.configureGame()
+
 	
 	game.start()
 }

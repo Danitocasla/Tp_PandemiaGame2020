@@ -9,9 +9,7 @@ class Manzana {
 	var property totalEnManzana
 	
 	method image() {
-		if (cantidadDeInfectados.between(0,4)) return "amarillo.png"
-		else if(cantidadDeInfectados.between(3,7)) return "naranja.png"
-		else if(cantidadDeInfectados > 7 and cantidadDeInfectados < totalEnManzana) return "rojo.png"
+
 		return "blanco.png"
 	}
 	
