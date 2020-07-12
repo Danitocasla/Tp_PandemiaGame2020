@@ -1,5 +1,6 @@
 import wollok.game.*
 import simulacion.*
+import agente.*
 
 object pandemiaGameConfig {
 	method height() = 4
@@ -10,13 +11,27 @@ object pandemiaGameConfig {
 		self.configureGameParameters()
 		self.agregarManzanas()
 		// letra "d" genera un paso de dia
-		keyboard.d().onPressDo {simulacion.pasoDeDia()}
+		keyboard.d().onPressDo ({simulacion.pasoDeDia()})
 		
 		//letra "i" agrega un infectado a la simulación
-		//keyboard.i().onPerssDo {simulacion.agregarInfectadoAlAzar()} no anda por ahora
+		keyboard.i().onPressDo ({simulacion.agregarInfectadoAlAzar()})
 		
-		// agregar las teclas de acciones
+		// Consulta General
+		keyboard.g().onPressDo ({console.println(simulacion.estadoGeneral())})
+		
+		// Agregar a Agente de Salud
+		keyboard.a().onPressDo ({self.agregarAgente()})
+		// Movimientos del Agente de Salud
+		
+		
+		// teclas de acciones del Agente
+		
+		
 		// después, al agente de salud y sus teclas de acciones y movimiento
+	}
+	
+	method agregarAgente(){
+		game.addVisual(agenteDeSalud)
 	}
 		
 	method configureGameParameters() {

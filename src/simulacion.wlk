@@ -47,6 +47,7 @@ object simulacion {
 		//movimiento y contagio a cada manzana
 		manzanas.forEach({m=>m.pasarUnDia()})
 		diaActual += 1
+		console.println("Termino el Día")
 	}// Daniel Mendez
 	
 	method agregarInfectadoAlAzar(){
@@ -56,7 +57,7 @@ object simulacion {
 	}// Daniel Mendez
 	
 	method manzanaAlAzar(){
-		return manzanas.get(0.roundUpTo(self.totalDePersonas()-1))
+		return manzanas.get(0.randomUpTo(manzanas.size()-1))
 	}// Daniel Mendez
 	
 	method estadoGeneral(){
@@ -68,7 +69,7 @@ object simulacion {
 	
 	method totalDePersonas() {
 		return manzanas.sum({
-			m => m.totalXManzanas()
+			m => m.cantidadDePersonas()
 		})
 	}// Daniel Mendez
 	
