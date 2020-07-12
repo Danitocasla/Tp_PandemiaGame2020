@@ -13,7 +13,10 @@ object pandemiaGameConfig {
 		keyboard.d().onPressDo {simulacion.pasoDeDia()}
 		
 		//letra "i" agrega un infectado a la simulación
-		//keyboard.i().onPerssDo {simulacion.agregarInfectadoAlAzar()} no anda por ahora
+		keyboard.i().onPerssDo {simulacion.agregarInfectadoAlAzar()}
+		
+		// Consulta General
+		
 		
 		// agregar las teclas de acciones
 		// después, al agente de salud y sus teclas de acciones y movimiento
