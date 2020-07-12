@@ -2,6 +2,9 @@ import personas.*
 import simulacion.*
 import wollok.game.*
 
+
+//odio git 
+
 class Manzana {
 	const property personas = []
 	var property position
