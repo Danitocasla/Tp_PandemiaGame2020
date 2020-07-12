@@ -9,7 +9,12 @@ object pandemiaGameConfig {
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
+		// letra "d" genera un paso de dia
 		keyboard.d().onPressDo {simulacion.pasoDeDia()}
+		
+		//letra "i" agrega un infectado a la simulación
+		//keyboard.i().onPerssDo {simulacion.agregarInfectadoAlAzar()} no anda por ahora
+		
 		// agregar las teclas de acciones
 		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
@@ -30,12 +35,6 @@ object pandemiaGameConfig {
 			})
 		})
 	}
-	// sin usar. Con duda donde usar
-	method agregarInfectade(){
-		const manzana = game.getObjectsIn(game.origin()	)
-		simulacion.agregarInfectadoA(manzana)
-	}
-	
 }
 
 program pandemiaGame {

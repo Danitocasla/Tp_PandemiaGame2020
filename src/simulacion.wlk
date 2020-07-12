@@ -49,15 +49,15 @@ object simulacion {
 		diaActual += 1
 	}// Daniel Mendez
 	
-	method agregarInfectadoA(unaManzana){
+	method agregarInfectadoAlAzar(){
 		const personaInfectada = new Persona()
 		personaInfectada.infectarse()         
-		unaManzana.agregarPersonaAlAzar(personaInfectada)
+		self.manzanaAlAzar().agregarPersona(personaInfectada)
 	}// Daniel Mendez
 	
-	method agregarPersonaAlAzar(unaPersona){
-		const manzanaAzar = manzanas.get(1..self.totalDePersonas())
-	}
+	method manzanaAlAzar(){
+		return manzanas.get(0.roundUpTo(self.totalDePersonas()-1))
+	}// Daniel Mendez
 	
 	method estadoGeneral(){
 		return "Dia Actual nro: " + self.diaActual() +
