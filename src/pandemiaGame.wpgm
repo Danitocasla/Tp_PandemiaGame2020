@@ -4,8 +4,8 @@ import manzanas.*
 import personas.*
 
 object pandemiaGameConfig {
-	method height() = 4
-	method width() = 6
+	method height() = 5
+	method width() = 5
 	method title() = "Simuléichon"
 	
 	method configureGame() {
