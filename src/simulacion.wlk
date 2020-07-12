@@ -57,7 +57,7 @@ object simulacion {
 	}// Daniel Mendez
 	
 	method manzanaAlAzar(){
-		return manzanas.get(0.roundUpTo(manzanas.size()-1))
+		return manzanas.get(0.randomUpTo(manzanas.size()-1))
 	}// Daniel Mendez
 	
 	method estadoGeneral(){
@@ -69,7 +69,7 @@ object simulacion {
 	
 	method totalDePersonas() {
 		return manzanas.sum({
-			m => m.totalXManzanas()
+			m => m.cantidadDePersonas()
 		})
 	}// Daniel Mendez
 	
