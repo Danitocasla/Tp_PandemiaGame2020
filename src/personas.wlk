@@ -48,7 +48,7 @@ object agenteDeSalud{
 	method moverAbajo(){
 		self.position(self.position().down(1))
 	}
-	method aislarPersonas(){
+	method aislarPersonas(){	
 		
 	}
 	method hacerRespetarLaCuarentena(){

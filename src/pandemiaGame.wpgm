@@ -32,6 +32,7 @@ object pandemiaGameConfig {
 			})
 		})
 	}
+	
 	method agregarAgenteDeSalud(){
 	game.addVisual(agenteDeSalud)
 	keyboard.up().onPressDo{agenteDeSalud.moverArriba()}
@@ -44,6 +45,7 @@ object pandemiaGameConfig {
 
 
 program pandemiaGame {
+	
 	pandemiaGameConfig.configureGame()
 
 	
