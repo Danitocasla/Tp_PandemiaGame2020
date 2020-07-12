@@ -1,32 +1,33 @@
+import simulacion.*
+
 class Persona {
 	var property estaAislada = false
-	var property respetaLaCuarentena = false
-	var property presentaSintomas = false
-	var property diaEnQueSeInfeeto = 0
+	var property respetaCuarentena = false
+	var property diaEnQueSeInfecto = 0
 	var property estaInfectada = false
 	var property tengoSintomas = false
+	var property probabilidadDePresentarSintomas = 0
 	
 
 	method infectarse() {
-		estaInfectada = true
-	}
-	
+		if (not self.estaInfectada()) {
+		  estaInfectada = true
+		  diaEnQueSeInfecto = simulacion.diaActual()
+		  probabilidadDePresentarSintomas = 0.randomUpTo(100)
+		}
+	}		 
+		
 	method aislarse() {
 		estaAislada = true
 	}
 	
-	method puedePresentarSintomas() {		
-		const probabilidadDepresentarSintoma = 0.randomUpTo(100).truncate(0)
-		
-		if(probabilidadDepresentarSintoma <= 20){
+	method presentaSintomas() {			
+		if(probabilidadDePresentarSintomas <= simulacion.chanceDePresentarSintomas()){
 			tengoSintomas = true
 		}
-	}
+	 }
 	
-	method sePuedeInfectar() {
-		const probabilidadDeContagio = 0.randomUpTo(100).truncate(0)
-		
-		return not estaAislada && not estaInfectada && (respetaLaCuarentena && probabilidadDeContagio <= 2) || (not respetaLaCuarentena && probabilidadDeContagio <= 30)
+	method vaARespetarLaCuarentena() {
+		respetaCuarentena = true
 	}
 }
-
