@@ -1,32 +1,41 @@
-import wollok.game.*
+import simulacion.*
 
 class Persona {
 	var property estaAislada = false
-	var property respetaLaCuarentena = false
+
 	var property presentaSintomas = false
 	var property diaEnQueSeInfecto = 0
 	var property estaInfectada = false
-	var property tengoSintomas = false
-	
 
+	method respetaCuarentena() = estaAislada
+	
 	method infectarse() {
-		estaInfectada = true
+		if (not self.estaInfectada()) { 
+			estaInfectada = true
+			diaEnQueSeInfecto = simulacion.diaActual()
+			}
 	}
+	
 	method aislarse() {
 		estaAislada = true
 	}
-	method puedePresentarSintomas() {		
-		const probabilidadDepresentarSintoma = 0.randomUpTo(100).truncate(0)
-		
-		if(probabilidadDepresentarSintoma <= 20){
-			tengoSintomas = true
+	
+
+	method presentaSintomas() { 
+		if (estaInfectada){
+			return simulacion.tomarChance(simulacion.chanceDePresentarSintomas())
 		}
+		else {
+			return false
+		}	
 	}
-	method sePuedeInfectar() {
-		const probabilidadDeContagio = 0.randomUpTo(100).truncate(0)
-		
-		return not estaAislada && not estaInfectada && (respetaLaCuarentena && probabilidadDeContagio <= 2) || (not respetaLaCuarentena && probabilidadDeContagio <= 30)
-	}
+	
+	method diasDeEnfermo(){
+		return simulacion.diaActual() - diaEnQueSeInfecto
+	}// Daniel Mendez
+	
+	method curarse(){
+		self.estaInfectada(false)
 
+	}
 }
-

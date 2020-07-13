@@ -1,19 +1,40 @@
 import wollok.game.*
 import simulacion.*
-import manzanas.*
-import agenteDeSalud.*
+import agente.*
+
 
 object pandemiaGameConfig {
-	method height() = 5
-	method width() = 5
+	method height() = 4
+	method width() = 6
 	method title() = "Simuléichon"
 	
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
-		self.agregarAgenteDeSalud()
-		// agregar las teclas de acciones
+		// letra "d" genera un paso de dia
+		keyboard.d().onPressDo ({simulacion.pasoDeDia()})
+		// letra "c" cura a todos despues del paso del dia
+		keyboard.c().onPressDo ({simulacion.curarATodes()})
+		
+		//letra "i" agrega un infectado a la simulación
+		keyboard.i().onPressDo ({simulacion.agregarInfectadoAlAzar()})
+		
+		// Consulta General
+		keyboard.g().onPressDo ({console.println(simulacion.estadoGeneral())})
+		
+		// Agregar a Agente de Salud
+		keyboard.a().onPressDo ({self.agregarAgente()})
+		// Movimientos del Agente de Salud
+		
+		
+		// teclas de acciones del Agente
+		
+		
 		// después, al agente de salud y sus teclas de acciones y movimiento
+	}
+	
+	method agregarAgente(){
+		game.addVisual(agenteDeSalud)
 	}
 		
 	method configureGameParameters() {
@@ -32,23 +53,10 @@ object pandemiaGameConfig {
 			})
 		})
 	}
-	
-	method agregarAgenteDeSalud(){
-	game.addVisual(agenteDeSalud)
-	keyboard.up().onPressDo{agenteDeSalud.moverArriba()}
-	keyboard.down().onPressDo{agenteDeSalud.moverAbajo()}
-	keyboard.right().onPressDo{agenteDeSalud.moverDerecha()}
-	keyboard.left().onPressDo{agenteDeSalud.moverIzquierda()}
-	}
-	
 }
 
-
 program pandemiaGame {
-	
 	pandemiaGameConfig.configureGame()
-
-	
 	game.start()
 }
 
