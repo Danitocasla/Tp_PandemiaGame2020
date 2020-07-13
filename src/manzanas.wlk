@@ -5,39 +5,37 @@ import wollok.game.*
 class Manzana {
 	const property personas = []
 	var property position
+	var property curarATodos = false
 	
-	method agregarPersonaAManzana(unaPersona) = personas.add(unaPersona)
-	// Daniel Mendez
+	method agregarPersona(unaPersona) = personas.add(unaPersona)
 	method sacarPersona(unaPersona) = personas.remove(unaPersona)
-	// Daniel Mendez
-	
+		
 	method image() {
 		// reeemplazarlo por los distintos colores de acuerdo a la cantidad de infectados
 		// también vale reemplazar estos dibujos horribles por otros más lindos
 		var color
-		if(self.cantidadInfectades()==self.cantidadDePersonas()){
-			color = "rojo.png"
-		}
-		else if(self.cantidadInfectades().between(8,self.cantidadDePersonas()-1)){
-			color = "naranjaOscuro.png"
+		if(self.cantidadInfectades().between(1,3)){
+			color = "amarillo.png"
 		}
 		else if(self.cantidadInfectades().between(4,7)){
 			color = "naranja.png"
 		}
-		else if(self.cantidadInfectades().between(1,3)){
-			color = "amarillo.png"
+		else if(self.cantidadInfectades().between(8,self.totalXManzana()-1)){
+			color = "naranjaOscuro.png"
+		}
+		else if(self.cantidadInfectades()==self.totalXManzana()){
+			color = "rojo.png"
 		}
 		else {color = "blanco.png" }
 		return color
 	}// Daniel Mendez
 	
 	//total de personas por manzana
-	method cantidadDePersonas() = personas.size()
-	// Daniel Mendez
+	method totalXManzana() = personas.size()
+
 	
 	// cantidad total de infectades
-	method cantidadInfectades() = self.cantidadDePersonas() - self.noInfectades().size()
-	// Mendez Daniel
+	method cantidadInfectades() = self.totalXManzana() - self.noInfectades().size()
 	
 	// este les va a servir para el movimiento
 	method esManzanaVecina(manzana) {
@@ -47,25 +45,38 @@ class Manzana {
 	method pasarUnDia() {
 		self.transladoDeUnHabitante()
 		self.simulacionContagiosDiarios()
-		//self.curacion()
-		// despues agregar la curacion
+		self.curacion()
 	}
 	
+	method curacion(){
+		if(curarATodos){
+		personas.forEach({pers=>pers.curarse()})
+		self.curarATodos(false)
+		}
+		else {
+		self.personasACurar().forEach({pers=>pers.curarse()})
+		}
+	}
+	
+	method personasACurar() = personas.filter({
+		pers=>pers.diasDeEnfermo()>20
+	})
+
 	method personaSeMudaA(persona, manzanaDestino) {
 		self.sacarPersona(persona)
 		manzanaDestino.agregarPersona(persona)
-	}// Daniel Mendez
+	}
 
 	
 	method cantidadContagiadores() {
 		return personas.count({
 			pers => pers.estaInfectada() and not pers.estaAislada()
 		})
-	}// Daniel Mendez
+	}
 	
 	method infectades(){
 		return personas.filter({ pers => pers.estaInfectada() })
-	}// Daniel Mendez
+	}
 	
 	method noInfectades() {
 		return personas.filter({ pers => not pers.estaInfectada() })
