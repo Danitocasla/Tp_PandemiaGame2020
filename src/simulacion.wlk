@@ -31,7 +31,57 @@ object simulacion {
 
 	method crearManzana() {
 		const nuevaManzana = new Manzana()
-		// agregar la cantidad de personas segun self.personasPorManzana()
+		(1..self.personasPorManzana()).forEach({p=>
+				self.crearYAgregarA(nuevaManzana)
+		})
 		return nuevaManzana
-	}
+	}// Daniel Mendez
+	
+	method crearYAgregarA(unaManzana){
+		const nuevaPersona = new Persona()
+		unaManzana.agregarPersona(nuevaPersona)
+	}// Daniel Mendez
+	
+	// probar con código de manzanas terminado
+	method pasoDeDia(){
+		//movimiento y contagio a cada manzana
+		manzanas.forEach({m=>m.pasarUnDia()})
+		diaActual += 1
+		console.println("Termino el Día")
+	}// Daniel Mendez
+	
+	method agregarInfectadoAlAzar(){
+		const personaInfectada = new Persona()
+		personaInfectada.infectarse()         
+		self.manzanaAlAzar().agregarPersona(personaInfectada)
+	}// Daniel Mendez
+	
+	method manzanaAlAzar(){
+		return manzanas.get(0.randomUpTo(manzanas.size()-1))
+	}// Daniel Mendez
+	
+	method estadoGeneral(){
+		return "Dia Actual nro: " + self.diaActual() +
+		" Total de Persosnas: " + self.totalDePersonas() + 
+		" Infectades: " + self.contidadInfectadesTotal() + " Con sintomas: " +
+		self.cantidadTotalConSintomas()
+	}// Daniel Mendez
+	
+	method totalDePersonas() {
+		return manzanas.sum({
+			m => m.cantidadDePersonas()
+		})
+	}// Daniel Mendez
+	
+	method contidadInfectadesTotal() {
+		return manzanas.sum({
+			m => m.cantidadInfectades()
+		})
+	}// Daniel Mendez
+	
+	method cantidadTotalConSintomas(){
+		return manzanas.sum({
+			m => m.cantidadConSintomas()
+		})
+	}// Daniel Mendez	
 }
