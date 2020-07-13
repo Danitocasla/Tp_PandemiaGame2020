@@ -11,12 +11,7 @@ object simulacion {
 	const property chanceDeContagioConCuarentena = 2
 	const property personasPorManzana = 10
 	const property duracionInfeccion = 20
-
-	/*
-	 * este sirve para generar un azar
-	 * p.ej. si quiero que algo pase con 30% de probabilidad pongo
-	 * if (simulacion.tomarChance(30)) { ... } 
-	 */ 	
+	
 	method tomarChance(porcentaje) = 0.randomUpTo(100) < porcentaje
 
 	method agregarManzana(manzana) { manzanas.add(manzana) }
@@ -42,7 +37,7 @@ object simulacion {
 		unaManzana.agregarPersona(nuevaPersona)
 	}// Daniel Mendez
 	
-	// probar con código de manzanas terminado
+	// paso de dia en el game
 	method pasoDeDia(){
 		//movimiento y contagio a cada manzana
 		manzanas.forEach({m=>m.pasarUnDia()})
@@ -69,7 +64,7 @@ object simulacion {
 	
 	method totalDePersonas() {
 		return manzanas.sum({
-			m => m.cantidadDePersonas()
+			m => m.totalXManzana()
 		})
 	}// Daniel Mendez
 	
@@ -83,5 +78,8 @@ object simulacion {
 		return manzanas.sum({
 			m => m.cantidadConSintomas()
 		})
-	}// Daniel Mendez	
+	}// Daniel Mendez
+	method curarATodes(){
+		manzanas.forEach({m => m.curarATodos(true)})
+	}	
 }

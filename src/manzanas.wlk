@@ -2,73 +2,90 @@ import personas.*
 import simulacion.*
 import wollok.game.*
 
-
-//odio git 
-
 class Manzana {
 	const property personas = []
 	var property position
-	var property cantidadDeInfectados
-	var property totalEnManzana
+	var property curarATodos = false
 	
+	method agregarPersona(unaPersona) = personas.add(unaPersona)
+	method sacarPersona(unaPersona) = personas.remove(unaPersona)
+		
 	method image() {
-		if(self.cantidadDeInfectados()) return "rojo.png"
-		else if(self.cantidadDeInfectados() < self.cantidadDePersonas()) return "naranjaOscuo.png"
-		else if(self.cantidadDeInfectados().between(4,7)) return "naranja.png"
-		else if(self.cantidadDeInfectados().between(1,3)) return "amarillo.png"
-		else return "blanco.png"
-	}
+		// reeemplazarlo por los distintos colores de acuerdo a la cantidad de infectados
+		// también vale reemplazar estos dibujos horribles por otros más lindos
+		var color
+		if(self.cantidadInfectades().between(1,3)){
+			color = "amarillo.png"
+		}
+		else if(self.cantidadInfectades().between(4,7)){
+			color = "naranja.png"
+		}
+		else if(self.cantidadInfectades().between(8,self.totalXManzana()-1)){
+			color = "naranjaOscuro.png"
+		}
+		else if(self.cantidadInfectades()==self.totalXManzana()){
+			color = "rojo.png"
+		}
+		else {color = "blanco.png" }
+		return color
+	}// Daniel Mendez
 	
+	//total de personas por manzana
+	method totalXManzana() = personas.size()
+
+	
+	// cantidad total de infectades
+	method cantidadInfectades() = self.totalXManzana() - self.noInfectades().size()
+	
+	// este les va a servir para el movimiento
 	method esManzanaVecina(manzana) {
 		return manzana.position().distance(position) == 1
 	}
 
-	method pasarUnDia(){
+	method pasarUnDia() {
 		self.transladoDeUnHabitante()
-	 	self.simulacionContagiosDiarios()
+		self.simulacionContagiosDiarios()
 		self.curacion()
 	}
 	
 	method curacion(){
-		return if (not self.hayPersonaSana()) self.curarPersonas()
-		else self.error("No se puede curar")
+		if(curarATodos){
+		personas.forEach({pers=>pers.curarse()})
+		self.curarATodos(false)
+		}
+		else {
+		self.personasACurar().forEach({pers=>pers.curarse()})
+		}
 	}
-	method curarPersonas(){
-		return personas.forEach({pers => pers.estaInfectada(true)})
-	}
-	method hayPersonaSana(){
-		return personas.any({pers => pers.diaEnQueSeInfecto() >= 20})
-	}
+	
+	method personasACurar() = personas.filter({
+		pers=>pers.diasDeEnfermo()>20
+	})
+
 	method personaSeMudaA(persona, manzanaDestino) {
-		self.expulsarPersonaDeManzana(persona)
-		manzanaDestino.agregarPersonaAManzana(persona)
+		self.sacarPersona(persona)
+		manzanaDestino.agregarPersona(persona)
 	}
-	method cantidadDePersonas(){
-		return personas.size()
-	}
+
+	
 	method cantidadContagiadores() {
-		return self.cantidadDeInfectadosYNoAislados()
+		return personas.count({
+			pers => pers.estaInfectada() and not pers.estaAislada()
+		})
 	}
-	method noInfectados() {
+	
+	method infectades(){
+		return personas.filter({ pers => pers.estaInfectada() })
+	}
+	
+	method noInfectades() {
 		return personas.filter({ pers => not pers.estaInfectada() })
-	}
-	method infectados() {
-		return personas.filter({pers => pers.estaInfectada()})
-	}
-	method cantidadDeInfectados(){
-		return personas.size({pers => pers.estaInfectada()})
-	}
-	method cantidadDeAislados(){
-		return personas.count({pers => pers.estaAislada()})
-	}
-	method cantidadDeInfectadosYNoAislados(){
-		return personas.count({pers => pers.estaInfectada()and not pers.estaAislada()})
-	}	
+	} 	
 	
 	method simulacionContagiosDiarios() { 
 		const cantidadContagiadores = self.cantidadContagiadores()
 		if (cantidadContagiadores > 0) {
-			self.noInfectados().forEach({ persona => 
+			self.noInfectades().forEach({ persona => 
 				if (simulacion.debeInfectarsePersona(persona, cantidadContagiadores)) {
 					persona.infectarse()
 				}
@@ -78,18 +95,16 @@ class Manzana {
 	
 	method transladoDeUnHabitante() {
 		const quienesSePuedenMudar = personas.filter({ pers => not pers.estaAislada() })
-		    if (quienesSePuedenMudar.size() > 2) {
+		if (quienesSePuedenMudar.size() > 2) {
 			const viajero = quienesSePuedenMudar.anyOne()
 			const destino = simulacion.manzanas().filter({ manz => self.esManzanaVecina(manz) }).anyOne()
 			self.personaSeMudaA(viajero, destino)			
 		}
 	}
 	
-	method agregarPersonaAManzana(unaPersona){
-		personas.add(unaPersona)
-	}
-	
-	method expulsarPersonaDeManzana(unaPersona){
-		personas.remove(unaPersona)
-	}
+	method cantidadConSintomas(){
+		return self.infectades().count({
+			pers => pers.presentaSintomas()
+		})
+	}// Daniel Mendez
 }
