@@ -2,10 +2,10 @@ import simulacion.*
 
 class Persona {
 	var property estaAislada = false
+
 	var property presentaSintomas = false
 	var property diaEnQueSeInfecto = 0
 	var property estaInfectada = false
-
 
 	method respetaCuarentena() = estaAislada
 	
@@ -20,6 +20,7 @@ class Persona {
 		estaAislada = true
 	}
 	
+
 	method presentaSintomas() { 
 		if (estaInfectada){
 			return simulacion.tomarChance(simulacion.chanceDePresentarSintomas())
@@ -35,5 +36,6 @@ class Persona {
 	
 	method curarse(){
 		self.estaInfectada(false)
+
 	}
 }
