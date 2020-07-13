@@ -39,7 +39,7 @@ object simulacion {
 	
 	method crearYAgregarA(unaManzana){
 		const nuevaPersona = new Persona()
-		unaManzana.agregarPersona(nuevaPersona)
+		unaManzana.agregarPersonaAManzana(nuevaPersona)
 	}// Daniel Mendez
 	
 	// probar con código de manzanas terminado
@@ -53,7 +53,7 @@ object simulacion {
 	method agregarInfectadoAlAzar(){
 		const personaInfectada = new Persona()
 		personaInfectada.infectarse()         
-		self.manzanaAlAzar().agregarPersona(personaInfectada)
+		self.manzanaAlAzar().agregarPersonaAManzana(personaInfectada)
 	}// Daniel Mendez
 	
 	method manzanaAlAzar(){
@@ -75,7 +75,7 @@ object simulacion {
 	
 	method contidadInfectadesTotal() {
 		return manzanas.sum({
-			m => m.cantidadInfectades()
+			m => m.cantidadDeInfectados()
 		})
 	}// Daniel Mendez
 	

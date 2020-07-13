@@ -2,16 +2,16 @@ import simulacion.*
 
 class Persona {
 	var property estaAislada = false
-	//var property respetaLaCuarentena = false reemplazar por method respetaCuarentena() = estaAislada
 	var property presentaSintomas = false
-	var property diaEnQueSeInfeeto = 0
+	var property diaDeContagio = 0
 	var property estaInfectada = false
 //	var property tengoSintomas = false  para eso esta presentaSintomas  
-//  falta property del registro del diaDeContagio	
 
+	method respetaCuarentena() = estaAislada
+	
 	method infectarse() {
 		estaInfectada = true
-		// falta registro de diaDeContagio
+		diaDeContagio = simulacion.diaActual()
 	}
 	
 	method aislarse() {
