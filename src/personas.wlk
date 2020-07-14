@@ -30,4 +30,8 @@ class Persona {
 	method vaARespetarLaCuarentena() {
 		respetaCuarentena = true
 	}
+	
+	method curarse() {
+		estaInfectada = false	
+	}
 }
