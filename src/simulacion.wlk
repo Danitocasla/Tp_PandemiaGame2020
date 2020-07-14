@@ -1,6 +1,5 @@
 import personas.*
 import manzanas.*
-import wollok.game.*
 
 object simulacion {
 	var property diaActual = 0
@@ -18,7 +17,7 @@ object simulacion {
 	method agregarManzana(manzana) { manzanas.add(manzana) }
 	
 	method debeInfectarsePersona(persona, cantidadContagiadores) {
-		const chanceDeContagio = if (persona.respetaLaCuarentena()) 
+		const chanceDeContagio = if (persona.respetaCuarentena()) 
 			self.chanceDeContagioConCuarentena() 
 			else 
 			self.chanceDeContagioSinCuarentena()

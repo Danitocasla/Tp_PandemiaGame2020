@@ -3,16 +3,14 @@ import simulacion.*
 import agente.*
 
 
-
 object pandemiaGameConfig {
-	method height() = 5
-	method width() = 5
+	method height() = 4
+	method width() = 6
 	method title() = "Simuléichon"
 	
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
-
 		// letra "d" genera un paso de dia
 		keyboard.d().onPressDo ({simulacion.pasoDeDia()})
 		// letra "c" cura a todos despues del paso del dia
@@ -31,7 +29,7 @@ object pandemiaGameConfig {
 		// teclas de acciones del Agente
 		keyboard.z().onPressDo ({agenteDeSalud.aislarInfectadoConSintoma()})
 		keyboard.x().onPressDo ({agenteDeSalud.convencerRespetar()})
-
+		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
 	
 	method agregarAgente(){
@@ -62,12 +60,7 @@ object pandemiaGameConfig {
 	}
 }
 
-
 program pandemiaGame {
-	
 	pandemiaGameConfig.configureGame()
-
-	
 	game.start()
 }
-
