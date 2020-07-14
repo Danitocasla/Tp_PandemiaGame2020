@@ -57,7 +57,7 @@ object simulacion {
 	
 	method estadoGeneral(){
 		return "Dia Actual nro: " + self.diaActual() +
-		" Total de Personas: " + self.totalDePersonas() + 
+		" Total de Persosnas: " + self.totalDePersonas() + 
 		" Infectades: " + self.contidadInfectadesTotal() + " Con sintomas: " +
 		self.cantidadTotalConSintomas()
 	}// Daniel Mendez
@@ -81,8 +81,5 @@ object simulacion {
 	}// Daniel Mendez
 	method curarATodes(){
 		manzanas.forEach({m => m.curarATodos(true)})
-	}
-	method obtenerPosicionManzana(posicion) {
-		return manzanas.find({m => m.position() == posicion})
 	}	
 }

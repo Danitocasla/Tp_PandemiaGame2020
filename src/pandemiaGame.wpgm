@@ -29,10 +29,8 @@ object pandemiaGameConfig {
 		
 		// teclas de acciones del Agente
 		
-		keyboard.t().onPressDo ({agenteDeSalud.aislarInfectadosConSintomas()})
 		
-		keyboard.y().onPressDo ({agenteDeSalud.hacerRespetarLaCuarentena()})
-	
+		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
 	
 	method agregarAgente(){

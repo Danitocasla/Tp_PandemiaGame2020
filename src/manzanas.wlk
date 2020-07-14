@@ -59,7 +59,7 @@ class Manzana {
 	}
 	
 	method personasACurar() = personas.filter({
-		pers=>pers.diaEnQueSeInfecto() > simulacion.duracionInfeccion()
+		pers=>pers.diasDeEnfermo()>20
 	})
 
 	method personaSeMudaA(persona, manzanaDestino) {
@@ -107,17 +107,4 @@ class Manzana {
 			pers => pers.presentaSintomas()
 		})
 	}// Daniel Mendez
-	
-	method aislarInfectades(){
-		self.infectades().forEach({p =>
-			if (p.presentaSintomas()) {
-				p.estaAislada(true)
-			} 
-		})
-	}
-	
-	method todosRespetanCuarentena(){
-		personas.forEach({p => p.respetaCuarentena(true)})
-	}
-	
-	}
+}
