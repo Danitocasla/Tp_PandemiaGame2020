@@ -15,7 +15,8 @@ object agenteDeSalud {
    }
    
    method mover(direccion, limite1, limite2){
-   		if(self.position().x().between(0,limite1) and self.position().y().between(0,limite1) ){
+   		if(direccion.siguiente(self.position()).x().between(0,limite1-1) 
+   				and direccion.siguiente(self.position()).y().between(0,limite2-1) ){
 			self.position(direccion.siguiente(self.position()))
 		}
 		else {

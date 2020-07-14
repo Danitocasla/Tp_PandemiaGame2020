@@ -34,7 +34,7 @@ object pandemiaGameConfig {
 	
 	method agregarAgente(){
 		game.addVisual(agenteDeSalud)
-		agenteDeSalud.configurarFlechas(self.height(),self.width())
+		agenteDeSalud.configurarFlechas(self.width(),self.height())
 		game.onCollideDo(agenteDeSalud, {manzana => game.say(agenteDeSalud, manzana.estadoDeManzana())})
 	}
 	
