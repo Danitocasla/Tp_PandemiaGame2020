@@ -29,5 +29,22 @@ class Persona {
 	
 	method curarse(){
 		self.estaInfectada(false)
+
 	}
+	method aislarse() {
+		estaAislada = true
+	}
+	method puedePresentarSintomas() {		
+		const probabilidadDepresentarSintoma = 0.randomUpTo(100).truncate(0)
+		
+		if(probabilidadDepresentarSintoma <= 20){
+			tengoSintomas = true
+		}
+	}
+	method sePuedeInfectar() {
+		const probabilidadDeContagio = 0.randomUpTo(100).truncate(0)
+		
+		return not estaAislada && not estaInfectada && (respetaLaCuarentena && probabilidadDeContagio <= 2) || (not respetaLaCuarentena && probabilidadDeContagio <= 30)
+	}
+
 }
