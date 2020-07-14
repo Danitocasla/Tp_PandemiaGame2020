@@ -1,7 +1,8 @@
 import wollok.game.*
 import simulacion.*
-import manzanas.*
-import personas.*
+import agente.*
+
+
 
 object pandemiaGameConfig {
 	method height() = 5
@@ -11,9 +12,36 @@ object pandemiaGameConfig {
 	method configureGame() {
 		self.configureGameParameters()
 		self.agregarManzanas()
-		self.agregarAgenteDeSalud()
-		// agregar las teclas de acciones
-		// después, al agente de salud y sus teclas de acciones y movimiento
+
+		// letra "d" genera un paso de dia
+		keyboard.d().onPressDo ({simulacion.pasoDeDia()})
+		// letra "c" cura a todos despues del paso del dia
+		keyboard.c().onPressDo ({simulacion.curarATodes()})
+		
+		//letra "i" agrega un infectado a la simulación
+		keyboard.i().onPressDo ({simulacion.agregarInfectadoAlAzar()})
+		
+		// Consulta General
+		keyboard.g().onPressDo ({console.println(simulacion.estadoGeneral())})
+		
+		// Agregar a Agente de Salud
+		keyboard.a().onPressDo ({self.agregarAgente()})
+		// Sacar Agente de Salud
+		keyboard.q().onPressDo ({self.removerAgente()})
+		// teclas de acciones del Agente
+		keyboard.z().onPressDo ({agenteDeSalud.aislarInfectadoConSintoma()})
+		keyboard.x().onPressDo ({agenteDeSalud.convencerRespetar()})
+
+	}
+	
+	method agregarAgente(){
+		game.addVisual(agenteDeSalud)
+		agenteDeSalud.configurarFlechas(self.height(),self.width())
+		game.onCollideDo(agenteDeSalud, {manzana => game.say(agenteDeSalud, manzana.estadoDeManzana())})
+	}
+	
+	method removerAgente(){
+		game.removeVisual(agenteDeSalud)	
 	}
 		
 	method configureGameParameters() {
@@ -32,15 +60,6 @@ object pandemiaGameConfig {
 			})
 		})
 	}
-	
-	method agregarAgenteDeSalud(){
-	game.addVisual(agenteDeSalud)
-	keyboard.up().onPressDo{agenteDeSalud.moverArriba()}
-	keyboard.down().onPressDo{agenteDeSalud.moverAbajo()}
-	keyboard.right().onPressDo{agenteDeSalud.moverDerecha()}
-	keyboard.left().onPressDo{agenteDeSalud.moverIzquierda()}
-	}
-	
 }
 
 
