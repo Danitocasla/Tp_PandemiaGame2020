@@ -78,6 +78,10 @@ class Manzana {
 		return personas.filter({ pers => pers.estaInfectada() })
 	}
 	
+	method infectadesConSintomas(){
+		return self.infectades().filter({ pers => pers.presentaSintomas() })
+	}
+	
 	method noInfectades() {
 		return personas.filter({ pers => not pers.estaInfectada() })
 	} 	
@@ -107,4 +111,28 @@ class Manzana {
 			pers => pers.presentaSintomas()
 		})
 	}// Daniel Mendez
+	method aislarInfectadesConSintoma(){
+		self.infectadesConSintomas().forEach({
+			pers => pers.estaAislada(true)
+		})
+	}// Daniel Mendez
+	
+	method estadoDeManzana(){
+		return "Personas " + self.totalXManzana() + 
+			" 
+Infectades " + self.infectades().size() + 
+				" 
+Síntomas " + self.cantidadConSintomas() + 
+				"
+Aislados " + self.cantidadDeAislados()
+	}
+	
+	method cantidadDeAislados(){
+		return personas.count({
+			pers => pers.estaAislada()
+		})
+	}
+	method hacerRespetarCuarentena(){
+		personas.forEach({pers => pers.respetaCuarentena(true)})
+	}
 }
