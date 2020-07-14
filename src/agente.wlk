@@ -18,9 +18,6 @@ object agenteDeSalud {
    		if(self.position().x().between(0,limite1) and self.position().y().between(0,limite1) ){
 			self.position(direccion.siguiente(self.position()))
 		}
-		else if(self.position().x().between(limite1,0) and self.position().y().between(limite1,0)){
-			self.position(direccion.siguiente(self.position()))
-		}
 		else {
 			game.say(self, "Por acá no es")
 			position = game.origin()
