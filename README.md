@@ -95,3 +95,14 @@ Lo que está alcanza para levantar un juego de 6x4 manzanas. Se incluye:
 - una clase que modela a la persona. De esta les damos un `var property`, y dos métodos que hay que implementar para que ande la simulación de contagio.
 
 Del agente de salud no hay nada.
+
+### Movimiento y Teclas del Game:
+
+- g: tira en consola un estado general
+- d: pasa el dia
+- i: agrega infectado
+- c: desinfecta a todos
+- a: agrega agente
+- q: quita agente
+- z: agente aisla a todos con sintomas
+- x: agente convence a los de la manzana donde esta
