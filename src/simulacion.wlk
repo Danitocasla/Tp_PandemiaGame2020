@@ -81,5 +81,8 @@ object simulacion {
 	}// Daniel Mendez
 	method curarATodes(){
 		manzanas.forEach({m => m.curarATodos(true)})
-	}	
+	}// Daniel Mendez
+	method aislarATodosInfectadesConSintoma(){
+		manzanas.forEach({m => m.aislarInfectadesConSintoma()})
+	}//Daniel Mendez
 }
