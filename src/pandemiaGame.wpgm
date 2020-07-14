@@ -24,17 +24,22 @@ object pandemiaGameConfig {
 		
 		// Agregar a Agente de Salud
 		keyboard.a().onPressDo ({self.agregarAgente()})
-		// Movimientos del Agente de Salud
-		
-		
+		// Sacar Agente de Salud
+		keyboard.q().onPressDo ({self.removerAgente()})
 		// teclas de acciones del Agente
-		
-		
+		keyboard.z().onPressDo ({agenteDeSalud.aislarInfectadoConSintoma()})
+		keyboard.x().onPressDo ({agenteDeSalud.convencerRespetar()})
 		// después, al agente de salud y sus teclas de acciones y movimiento
 	}
 	
 	method agregarAgente(){
 		game.addVisual(agenteDeSalud)
+		agenteDeSalud.configurarFlechas(self.height(),self.width())
+		game.onCollideDo(agenteDeSalud, {manzana => game.say(agenteDeSalud, manzana.estadoDeManzana())})
+	}
+	
+	method removerAgente(){
+		game.removeVisual(agenteDeSalud)	
 	}
 		
 	method configureGameParameters() {
@@ -59,3 +64,4 @@ program pandemiaGame {
 	pandemiaGameConfig.configureGame()
 	game.start()
 }
+

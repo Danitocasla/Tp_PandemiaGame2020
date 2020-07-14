@@ -1,40 +1,52 @@
+import wollok.game.*
 import manzanas.*
-import simulacion.*
 import personas.*
+import simulacion.*
 
+object agenteDeSalud {
+	var property image = "agente.png"
+	var property position = game.at(0,0)
+	
+	method configurarFlechas(alto,ancho){
+		keyboard.up().onPressDo{ self.mover(arriba,alto,ancho)}
+		keyboard.down().onPressDo{ self.mover(abajo,alto,ancho)}
+		keyboard.left().onPressDo{ self.mover(izquierda,alto,ancho)}
+		keyboard.right().onPressDo{ self.mover(derecha,alto,ancho)}
+   }
+   
+   method mover(direccion, limite1, limite2){
+   		if(self.position().x().between(0,limite1) and self.position().y().between(0,limite1) ){
+			self.position(direccion.siguiente(self.position()))
+		}
+		else if(self.position().x().between(limite1,0) and self.position().y().between(limite1,0)){
+			self.position(direccion.siguiente(self.position()))
+		}
+		else {
+			game.say(self, "Por acá no es")
+			position = game.origin()
+		}
+		
+	}
+	
+	method aislarInfectadoConSintoma(){
+		simulacion.aislarATodosInfectadesConSintoma()
+	}
+	method convencerRespetar(){
+		game.onCollideDo(self, {man => man.hacerRespetarCuarentena()})
+	}
+}
+object izquierda { 
+	method siguiente(position) = position.left(1) 
+}
 
+object derecha { 
+	method siguiente(position) = position.right(1) 
+}
 
-object agenteDeSalud{
-	var property position 
-	
-	method image(){
-		return "agenteDeSalud.png"
-	}
-	method moverDerecha(){
-		self.position(self.position().right(1))
-	}
-	
-	method moverIzquierda(){
-		self.position(self.position().left(1))
-	}
-	
-	method moverArriba(){
-		self.position(self.position().up(1))
-	}
-	
-	method moverAbajo(){
-		self.position(self.position().down(1))
-	}
-	
-	method manzanaActual(){
-		return simulacion.obtenerPosicionManzana(self.position())
-	}
-	
-	method aislarInfectadosConSintomas() {
-		self.manzanaActual().aislarInfectades()
-	}
+object abajo { 
+	method siguiente(position) = position.down(1) 
+}
 
-	method hacerRespetarLaCuarentena() {
-		self.manzanaActual().todosRespetanCuarentena()
-	}
+object arriba { 
+	method siguiente(position) = position.up(1) 
 }
